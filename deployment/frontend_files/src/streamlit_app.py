@@ -47,29 +47,14 @@ if st.button("Predict Engine Condition", type="primary"):
             if response.status_code == 200:
                 result = response.json()
                 
-                # FIX: Read prediction as a direct integer, do not try to index it with [0]
+                # Read prediction as a direct integer, do not try to index it with [0]
                 prediction = result.get("Engine Condition Prediction")
                 if isinstance(prediction, list):
                     prediction = prediction[0]
                 
                 probabilities = result.get("Probabilities")
-                computed_diags = result.get("Computed Diagnostics", {})
-                
-                # Visual Ratios Panel Update
-                st.subheader("Computed Diagnostic Ratios (Backend Flags)")
-                d_col1, d_col2 = st.columns(2)
-                with d_col1:
-                    st.metric(
-                        label="Coolant System Health (P/T Ratio)", 
-                        value=f"{computed_diags.get('Coolant_p_t_ratio', 0):.5f}"
-                    )
-                with d_col2:
-                    st.metric(
-                        label="Lubricating Oil System Health (P/T Ratio)", 
-                        value=f"{computed_diags.get('Lub_oil_p_t_ratio', 0):.5f}"
-                    )
 
-                # FIX: Safely calculate model confidence output mapping using the nested float index
+                # Safely calculate model confidence output mapping using the nested float index
                 prob_str = ""
                 if isinstance(probabilities, list) and len(probabilities) > 0:
                     # If probabilities is a list of lists [[p0, p1]], flatten it first
