@@ -52,10 +52,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # Note: If hosting files require specific dependencies, you may need to add them to one of your requirements.txt files.
+      # Backend hosting execution      
+      - name: Install Backend Dependencies
+        run: pip install -r deployment/backend_files/requirements.txt
       - name: Push Backend files to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python hosting/backend_hosting.py
+      # Frontend hosting execution
+      - name: Install Frontend Dependencies
+        run: pip install -r deployment/frontend_files/requirements.txt
       - name: Push Frontend files to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
