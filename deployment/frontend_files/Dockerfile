@@ -30,5 +30,5 @@ EXPOSE 7860
 HEALTHCHECK CMD curl --fail http://localhost:7860/_stcore/health || exit 1
 
 # Run the Streamlit app
-ENTRYPOINT ["streamlit", "run", "src/app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
+ENTRYPOINT ["streamlit", "run", "src/streamlit_app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
 # NOTE: Disable XSRF protection for easier external access in order to make batch predictions
