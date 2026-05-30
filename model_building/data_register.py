@@ -4,10 +4,6 @@ from huggingface_hub import HfApi, create_repo
 import os
 
 
-repo_id = "sudharshanc/predictive-vehicle-maintenance"
-repo_type = "dataset"
-
-
 HF_TOKEN = os.getenv("HF_TOKEN")
 # Initialize API client
 api = HfApi(token=HF_TOKEN)
@@ -23,7 +19,7 @@ except RepositoryNotFoundError:
 
 
 api.upload_folder(
-    folder_path="data",
+    folder_path="predictive-vehicle-maintenance/data",
     repo_id=repo_id,
     repo_type=repo_type,
 )
