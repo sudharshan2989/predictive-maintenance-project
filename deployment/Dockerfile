@@ -24,12 +24,11 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 
 # Expose Streamlit default port
-EXPOSE 8501
+EXPOSE 7860
 
 # Add healthcheck for container monitoring
 HEALTHCHECK CMD curl --fail http://localhost:7860/_stcore/health || exit 1
 
 # Run the Streamlit app
-ENTRYPOINT ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
-
+ENTRYPOINT ["streamlit", "run", "src/app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
 # NOTE: Disable XSRF protection for easier external access in order to make batch predictions
